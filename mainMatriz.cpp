@@ -29,9 +29,11 @@ int main() {
 	cin>>dimension;
 	cout<<endl;
 	
-    Matriz matriz1 = Matriz(dimension);
-    Matriz matriz2 = Matriz(dimension);
-    Matriz matriz3(dimension);
+    Matriz *ptrA;
+	ptrA = new Matriz(dimension);
+    Matriz *ptrB;
+	ptrB = new Matriz(dimension);
+    Matriz C (dimension);
 	Sistema Sis1(dimension);
 	
 	system("cls");
@@ -55,32 +57,33 @@ int main() {
     switch(opcion){
 	
 		case 'a':
-            matriz1.crearM();
+            ptrA->crearM();
 			cout<<endl;
 			cout<<nombre<<" Ingresa el escalar: ";
 			cin>>escalar;
 			cout<<"\nEl Resultado de tu Multiplicacion por un Escalar es: "<<endl;
-			matriz1.multiplicarEscalar(escalar);
-            cout<<matriz1;
+			ptrA->multiplicarEscalar(escalar);
+            cout<<*ptrA;
 			cout<<endl;
 			cout<<nombre<<" Gracias por utilizar esta calculadora de Matrices!"<<endl;
 		break;	
 	
 		case 'b':
-            matriz1.crearM();
+            ptrA->crearM();
 			cout<<endl;
-			matriz2.crearM();
-			matriz3=matriz1+matriz2;
-			cout<<matriz3<<endl;
+			ptrB->crearM();
+			C=*ptrA+*ptrB;
+			cout<<C<<endl;
 			cout<<nombre<<" Gracias por utilizar esta calculadora de Matrices!"<<endl;
 		break;	
 		
 		case 'c':
-			matriz1.crearM();
+			ptrA->crearM();
 			cout<<endl;
-			matriz2.crearM();
-			matriz3=matriz1*matriz2;
-			cout<<matriz3<<endl;
+			ptrB->crearM();
+			cout<<endl;
+			C=*ptrA**ptrB;
+			cout<<C<<endl;
 			cout<<nombre<<" Gracias por utilizar esta calculadora de Matrices!"<<endl;
 		break;	
 			
