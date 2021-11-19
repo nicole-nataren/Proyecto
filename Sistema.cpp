@@ -4,17 +4,15 @@
 using std::cout;
 using std::cin;
 using std::endl;
-
-#include "Matriz.hpp"
 #include "Sistema.hpp"
 
-Sistema::Sistema(int Dim){
-	this->DIM=Dim;
+Sistema::Sistema(int Dimension){
+	this->DIM=Dimension;
     this->matriz;
     
-    matriz = new int *[this->DIM];
+    matriz = new float *[this->DIM];
     for(int f=0; f < this->DIM; f++){
-		this->matriz[f] = new int [this->DIM];
+		this->matriz[f] = new float [this->DIM];
 	}
 	
 	for(int f=0; f < this->DIM; f++){
@@ -24,27 +22,47 @@ Sistema::Sistema(int Dim){
 	}	
 }
 
-Sistema::crearM(){
-	for(int f=0; f < this->DIM; f++){
-		for(int c=0; c < this->DIM; c++){
-			cout<<"Ingrese los datos de la matriz: ["<<f<<"]["<<c<<"]: ";
-			cin>>this->matriz[f][c];
-		}
-	} cout<<endl;
-	
-	cout<<"La Matriz ingresada es: "<<endl;
-	for(int f=0; f < this->DIM; f++){
-		for(int c=0; c < this->DIM; c++){
-			cout<<"[ "<<matriz[f][c]<<" ]";
-			
-		}cout<<endl;
+Sistema::Sistema(){
+	this->DIM = 0;
+    this->matriz;
+    
+    matriz = new float *[this->DIM];
+    for(int f=0; f < this->DIM; f++){
+		this->matriz[f] = new float [this->DIM];
 	}
-return 0;
+	for(int f=0; f < this->DIM; f++){
+		for(int c=0; c < this->DIM; c++){
+			*(*(this->matriz+f)+c)=0;
+		}
+	}
+	
+}
+
+Sistema::llenarMatriz(){
+	cout<<"La Matriz Generada es: "<<endl;
+	for(int f=0; f < this->DIM; f++){
+		for(int c=0; c < this->DIM; c++){
+			*(*(this->matriz+f)+c) = float (1+rand()% 21);
+		}
+	}
+}
+
+
+//friend
+ostream &operator <<(ostream &Imp,Sistema &A)
+{
+ for(int f=0; f < A.DIM; f++){
+  for(int c=0; c < A.DIM; c++){
+   Imp<<"["<<A.matriz[f][c]<<" ]";
+  }
+  cout<<endl;
+ }
+ return Imp;
 }
 
 
 float Sistema::Gauss(){
-	float may, aux, pivote;//variable para almacenar el mayor de la columna k
+	float may, aux, pivote;//variable para almacenar el mayor de la columna 
     int ind;//indice del mayor-->indice de may
     
     for(int n=0; n < this->DIM; n++){//recorrer columnas de la matriz reducida
@@ -94,13 +112,17 @@ float Sistema::Gauss(){
 	
 	cout<<endl;
 	
-		for(int f=0; f < this->DIM; f++){
+		/*for(int f=0; f < this->DIM; f++){
 			for(int c=0; c < this->DIM; c++){
 				cout<<"[ "<<matriz[f][c]<<" ]";
 			}cout<<endl;
 		}cout<<endl;
+
+*/
 return 0;
 }
 
-
-
+//delete
+Sistema::~Sistema(){
+	delete [] matriz;
+}

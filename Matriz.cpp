@@ -1,63 +1,57 @@
 #include "Matriz.hpp"
-#include <iostream>
 #include <cstdlib>
 using std::cout;
 using std::cin;
 using std::endl;
 using std::ostream;
+#include <iostream>
 
+//constructor
 Matriz::Matriz(int dimension) {
     this->DIM = dimension;
     this->matriz;
  
     
-    matriz = new int *[this->DIM];
+    matriz = new float *[this->DIM];
     for(int f=0; f < this->DIM; f++){
-		this->matriz[f] = new int [this->DIM];
+		this->matriz[f] = new float [this->DIM];
 	}
 	
 	for(int f=0; f < this->DIM; f++){
 		for(int c=0; c < this->DIM; c++){
-			matriz[f][c]=0;
+			*(*(this->matriz+f)+c)=0;
 		}
 	}	
 }
 
+//sobrecarga
 Matriz::Matriz(){
 	this->DIM = 0;
     this->matriz;
     
-    matriz = new int *[this->DIM];
+    matriz = new float *[this->DIM];
     for(int f=0; f < this->DIM; f++){
-		this->matriz[f] = new int [this->DIM];
+		this->matriz[f] = new float [this->DIM];
 	}
 	for(int f=0; f < this->DIM; f++){
 		for(int c=0; c < this->DIM; c++){
-			matriz[f][c]=0;
+			*(*(this->matriz+f)+c)=0;
 		}
 	}
 }
 
-
-int Matriz::crearM(){
-	
+//crear matriz y llenar
+void Matriz::llenarMatriz(){
+	cout<<"La Matriz Generada es: "<<endl;
 	for(int f=0; f < this->DIM; f++){
 		for(int c=0; c < this->DIM; c++){
-			cout<<"Ingrese los datos de la matriz: ["<<f<<"]["<<c<<"]: ";
-			cin>>this->matriz[f][c];
+			*(*(this->matriz+f)+c) = float (1+rand()% 21);
 		}
-	} cout<<endl;
-	
-	cout<<"La Matriz ingresada es: "<<endl;
-	for(int f=0; f < this->DIM; f++){
-		for(int c=0; c < this->DIM; c++){
-			cout<<"[ "<<matriz[f][c]<<" ]";
-			
-		}cout<<endl;
 	}
-return 0;
+	
 }
 
+//Imprimir
 ostream &operator <<(ostream &Imp,Matriz &Ma)
 {
  for(int f=0; f < Ma.DIM; f++){
@@ -70,15 +64,27 @@ ostream &operator <<(ostream &Imp,Matriz &Ma)
 }
 
 
+//Multiplicar escalar
 void Matriz::multiplicarEscalar(int Esca){
 	
 	for(int f=0; f < this->DIM; f++){
 		for(int c=0; c < this->DIM; c++){
-            matriz[f][c] = matriz[f][c] * Esca;
+            matriz[f][c] = matriz[f][c]*Esca;
 		}
 	}
 }
 
+//dividir escalar;
+void Matriz::dividirEscalar(int Esca){
+	
+	for(int f=0; f < this->DIM; f++){
+		for(int c=0; c < this->DIM; c++){
+            matriz[f][c] = matriz[f][c]/Esca;
+		}
+	}
+}
+
+//Friend Suma
 Matriz &operator +(Matriz &A, Matriz &B){	
 int n=A.DIM;
 Matriz *resul;
@@ -97,7 +103,26 @@ return *resul;
 	
 }
 
+// friend resta
+Matriz &operator -(Matriz &A, Matriz &B){	
+int n=A.DIM;
+Matriz *resul;
+resul = new Matriz(n);
 
+for(int f=0; f < n; f++){
+	for(int c=0; c < n ; c++){
+		resul->matriz[f][c]= A.matriz[f][c]-B.matriz[f][c];
+	}
+	cout<<endl;
+}
+
+cout<<"La Resta es:"<<endl;
+
+return *resul;
+	
+}
+
+//friend Multiplicar
 Matriz &operator *(Matriz &A, Matriz &B){
 int n=A.DIM;	
 Matriz *Mul;
@@ -106,7 +131,7 @@ Mul = new Matriz(n);
 for(int f=0; f < n; f++){
 	for(int c=0; c < n; c++){
 		Mul->matriz[f][c]=0;
-		for(int s=0; s < A.DIM; s++){
+		for(int s=0; s < n; s++){
 			Mul->matriz[f][c]+=A.matriz[f][s]*B.matriz[s][c];
 		}
 		}
@@ -116,8 +141,7 @@ for(int f=0; f < n; f++){
 	return *Mul;
 	}
 
-//destructor
-
+//Destructor
 Matriz::~Matriz(){
  delete[] matriz;
 }

@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = mainMatriz.o Sistema.o Matriz.o
-LINKOBJ  = mainMatriz.o Sistema.o Matriz.o
+OBJ      = mainMatriz.o Sistema.o Matriz.o MatrizCompleja.o Complejo.o
+LINKOBJ  = mainMatriz.o Sistema.o Matriz.o MatrizCompleja.o Complejo.o
 LIBS     = -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib" -L"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include"
 CXXINCS  = -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include" -I"C:/Program Files (x86)/Embarcadero/Dev-Cpp/TDM-GCC-64/lib/gcc/x86_64-w64-mingw32/9.2.0/include/c++"
@@ -32,3 +32,9 @@ Sistema.o: Sistema.cpp
 
 Matriz.o: Matriz.cpp
 	$(CPP) -c Matriz.cpp -o Matriz.o $(CXXFLAGS)
+
+MatrizCompleja.o: MatrizCompleja.cpp
+	$(CPP) -c MatrizCompleja.cpp -o MatrizCompleja.o $(CXXFLAGS)
+
+Complejo.o: Complejo.cpp
+	$(CPP) -c Complejo.cpp -o Complejo.o $(CXXFLAGS)
